@@ -1,46 +1,45 @@
-import { Component } from 'react';
 import { ImageGalleryItemStyled } from './ImageGalleryItem.styled';
 import PropTypes from 'prop-types';
 import ImageGalleryItemImg from './ImageGalleryItemImg';
 import Modal from 'components/Modal/Modal';
+import { useState } from 'react';
 
-class ImageGalleryItem extends Component {
-  state = {
-    showModal: false,
-  };
-  showModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
-  };
-  openGalleryItemModal = id => {
-    this.showModal();
-    const galleryItem = this.props.galleryList.filter(item => item.id === id);
-    this.setState({ largeImage: galleryItem[0].largeImageURL });
+const ImageGalleryItem = ({ onClick, galleryList, imageURL }) => {
+  // state = {
+  //   showModal: false,
+  // };
+  const [showModal, setShowModal] = useState(false);
+
+  const showModalOnClick = () => {
+    setShowModal(prevState => !prevState);
   };
 
-  render() {
-    const { galleryList } = this.props;
-    return (
-      <>
-        {galleryList.map(({ id, webformatURL, largeImageURL }) => {
-          return (
-            <ImageGalleryItemStyled
-              key={id}
-              onClick={() => {
-                this.props.onClick(largeImageURL);
-                this.showModal();
-              }}
-            >
-              <ImageGalleryItemImg src={webformatURL} />
-            </ImageGalleryItemStyled>
-          );
-        })}
-        {this.state.showModal && (
-          <Modal src={this.props.imageURL} onClose={this.showModal} />
-        )}
-      </>
-    );
-  }
-}
+  // const openGalleryItemModal = id => {
+  //   this.showModal();
+  //   const galleryItem = this.props.galleryList.filter(item => item.id === id);
+  //   this.setState({ largeImage: galleryItem[0].largeImageURL });
+  // };
+
+  // const { galleryList } = this.props;
+  return (
+    <>
+      {galleryList.map(({ id, webformatURL, largeImageURL }) => {
+        return (
+          <ImageGalleryItemStyled
+            key={id}
+            onClick={() => {
+              onClick(largeImageURL);
+              showModalOnClick();
+            }}
+          >
+            <ImageGalleryItemImg src={webformatURL} />
+          </ImageGalleryItemStyled>
+        );
+      })}
+      {showModal && <Modal src={imageURL} onClose={showModalOnClick} />}
+    </>
+  );
+};
 
 export default ImageGalleryItem;
 

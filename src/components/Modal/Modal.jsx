@@ -3,14 +3,6 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
 const Modal = ({ onClose, src }) => {
-  // componentDidMount() {
-  //   window.removeEventListener('keydown', this.handleKeyDown);
-  //   window.removeEventListener('click', this.handleBackdropClick);
-  // }
-  // componentWillUnmount() {
-  //   window.removeEventListener('keydown', this.handleKeyDown);
-  //   window.removeEventListener('click', this.handleBackdropClick);
-  // }
   const handleKeyDown = event => {
     if (event.code === 'Escape') {
       onClose();

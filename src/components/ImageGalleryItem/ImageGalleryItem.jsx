@@ -5,22 +5,11 @@ import Modal from 'components/Modal/Modal';
 import { useState } from 'react';
 
 const ImageGalleryItem = ({ onClick, galleryList, imageURL }) => {
-  // state = {
-  //   showModal: false,
-  // };
   const [showModal, setShowModal] = useState(false);
 
   const showModalOnClick = () => {
     setShowModal(prevState => !prevState);
   };
-
-  // const openGalleryItemModal = id => {
-  //   this.showModal();
-  //   const galleryItem = this.props.galleryList.filter(item => item.id === id);
-  //   this.setState({ largeImage: galleryItem[0].largeImageURL });
-  // };
-
-  // const { galleryList } = this.props;
   return (
     <>
       {galleryList.map(({ id, webformatURL, largeImageURL }) => {
